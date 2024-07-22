@@ -5,6 +5,8 @@ class UsersController < ApplicationController
     @users = User.all
     @book = Book.new
     @user = User.find(params[:id])
+    @followers = @user.followers
+    @following = @user.followings
     @books = @user.books
   end
 
@@ -27,6 +29,18 @@ class UsersController < ApplicationController
       render :edit
       return
     end
+  end
+
+  def follow
+    @user = User.find(params[:id])
+    current_user.follow(@user)
+    redirect_to user_path(@user)
+  end
+
+  def unfollow
+    @user = User.find(params[:id])
+    current_user.unfollow(@user)
+    redirect_to user_path(@user)
   end
 
   private
