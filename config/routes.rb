@@ -6,7 +6,7 @@ Rails.application.routes.draw do
     get "followers" => "relationships#followers", as: "followers"
   end
   resources :books, only: [:show, :edit, :create, :update, :index, :destroy] do
-    resource :favorite, only: [:create, :destroy]
+    resource :favorites, only: [:create, :destroy]
     resources :book_comments, only: [:create, :destroy]
   end
   root to: 'homes#top'
