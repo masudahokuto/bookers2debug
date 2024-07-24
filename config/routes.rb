@@ -9,6 +9,7 @@ Rails.application.routes.draw do
     resource :favorites, only: [:create, :destroy]
     resources :book_comments, only: [:create, :destroy]
   end
+  resources :chats, only: [:show, :create, :destroy]
   root to: 'homes#top'
   get 'home/about', to: 'homes#about', as: 'about'
   get "/search", to: "searches#search"
