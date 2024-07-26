@@ -18,6 +18,7 @@ class UsersController < ApplicationController
     @users = User.all
     @book = Book.new
     @user = current_user
+
   end
 
   def edit
@@ -45,6 +46,13 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     current_user.unfollow(@user)
     redirect_to user_path(@user)
+  end
+
+  def posts_on_date
+    user = User.includes(:books).find(params[:user_id])
+    date = Date.parse(params[:created_at])
+    @books = user.books.where(created_at: date.all_day)
+    render :posts_on_date_form
   end
 
   private
