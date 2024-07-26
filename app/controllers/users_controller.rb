@@ -48,12 +48,12 @@ class UsersController < ApplicationController
     redirect_to user_path(@user)
   end
 
-  def posts_on_date
-    user = User.includes(:books).find(params[:user_id])
-    date = Date.parse(params[:created_at])
-    @books = user.books.where(created_at: date.all_day)
-    render :posts_on_date_form
+  def daily_posts
+    user = User.find(params[:user_id])
+    @books = user.books.where(created_at: params[:created_at].to_date.all_day)
+    render :daily_posts_form
   end
+
 
   private
 
